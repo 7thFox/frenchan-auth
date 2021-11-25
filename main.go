@@ -13,6 +13,19 @@ import (
 const htpasswdFilePath = "/var/www/vichan/vichan-users"
 const defaultPassword = "burbfren"
 
+const logoutButton = `
+<a href=" " onclick="(function() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4) {
+            location.reload()
+        }
+    };
+    xmlhttp.open('GET', location.origin, true);
+    xmlhttp.setRequestHeader('Authorization', 'Basic logmeout');
+    xmlhttp.send();
+    return false;})()">Log Out</a>`
+
 var admins map[string]bool
 
 func main() {
@@ -55,6 +68,7 @@ func setupHTTP() {
 			</form>
 			<a href="/changepassword">Change Password</a>
 			`)
+			fmt.Fprintf(w, logoutButton)
 		case "POST":
 			var formUsername, formName string
 			r.ParseForm()
@@ -99,6 +113,7 @@ func setupHTTP() {
 			</form>
 			<a href="/createuser">Create User (admins only)</a>
 			`)
+			fmt.Fprintf(w, logoutButton)
 		case "POST":
 			var passNew string
 			r.ParseForm()
