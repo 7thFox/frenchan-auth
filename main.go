@@ -16,6 +16,7 @@ const defaultPassword = "burbfren"
 var admins map[string]bool
 
 func main() {
+	fmt.Println("Initializing...")
 	admins = make(map[string]bool)
 	admins["joshb"] = true
 	admins["burdmin"] = true
@@ -25,7 +26,9 @@ func main() {
 	admins["mattyh"] = true
 
 	setupHTTP()
+	fmt.Println("Listening on port 8315...")
 	http.ListenAndServe(":8315", nil)
+	fmt.Println("Shutting Down (somehow)")
 }
 
 func setupHTTP() {

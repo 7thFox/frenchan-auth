@@ -1,0 +1,11 @@
+[Unit]
+Description=User Management for Burbs
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/go run /home/josh/frenchan-auth/main.go
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
