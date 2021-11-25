@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-const htpasswdFilePath = "./.htpasswd"
+const htpasswdFilePath = "/var/www/vichan/vichan-users"
 const defaultPassword = "burbfren"
 
 var admins map[string]bool
@@ -18,6 +18,11 @@ var admins map[string]bool
 func main() {
 	admins = make(map[string]bool)
 	admins["joshb"] = true
+	admins["burdmin"] = true
+	admins["katst"] = true
+	admins["thomass"] = true
+	admins["shannonj"] = true
+	admins["mattyh"] = true
 
 	setupHTTP()
 	http.ListenAndServe(":8315", nil)
