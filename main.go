@@ -149,6 +149,7 @@ func writeUser(username, name, passClear string, isCreate bool) error {
 			updated = true
 		} else {
 			newFile.WriteString(l)
+			newFile.WriteRune('\n')
 		}
 	}
 
