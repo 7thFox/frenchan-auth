@@ -50,9 +50,11 @@ event_handler('post', function($post) {
 	}
 
 	if (preg_match("/^[a-zA-Z]+$/", $post->name)) { // usernames should match this, otherwise we risk injection
-		$cmd = 'grep -B 1 "^' . $post->name . ':" /var/www/vichan/vichan-users | head -n 1 | cut -d "#" -f2';
+		$cmd = 'grep -A 1 "^' . $post->name . ':" /var/www/vichan/vichan-users | tail -n 1 | cut -d "#" -f2';
 
 		$prettyname = trim(shell_exec($cmd));
+
+		// return "Foo: " . $prettyname;
 		if (isset($prettyname)) {
 			$post->name = $prettyname;
 		}
