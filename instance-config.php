@@ -8,13 +8,30 @@
 *  You can copy values from config.php (defaults) and paste them here.
 */
 
+	//$config['smart_build'] = true;
+	$config['try_smarter'] = false;
+	$config['spoiler_images'] = true;
+	$config['field_disable_reply_subject'] = true;
+	$config['strip_exif'] = true;
+	$config['image_reject_repost'] = false;
+//	$config['poster_ids'] = true;
+	$config['thread_subject_in_title'] = true;
+
+	$config['boards'] = array(
+		array('fren', 'test')
+	);
+	$config['page_nav_top'] = true;
+	$config['additional_javascript'][] = 'js/local-time.js';
+	$config['additional_javascript'][] = 'js/auto-reload.js';
+	$config['additional_javascript'][] = 'js/catalog-search.js'; // for catalog page
+	$config['additional_javascript'][] = 'js/catalog.js';        // for catalog page
+	$config['additional_javascript'][] = 'js/inline-expanding.js'; // for catalog page
 
 	$config['db']['server'] = 'localhost';
 	$config['db']['database'] = 'vichan';
 	$config['db']['prefix'] = '';
 	$config['db']['user'] = 'vichan-user';
 	$config['db']['password'] = 'vichan-pass';
-
 
 	$config['cookies']['mod'] = 'mod';
 	$config['cookies']['salt'] = 'OSSL.QglincFaOBC+wMNnC3+T2VpGyBxAAYsTyM8kxfLacO3ZJIFT+W0wz419Z2B0VsUy9/8dYoA+0yJwYxrYHUN60lSx0x0S5jme7k3JbtJdaCMi/R1sJbfKtikM3rPpMGLbJZrMhycfZ9INeXCj5Lgr4FDoMmVdgQ9J7hKAoKd7Lwo=';

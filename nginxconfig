@@ -2,7 +2,7 @@
 server {
 	listen 8080;
 
-	access_log /home/josh/vichan-logons;
+	# access_log /home/josh/vichan-logons;
 	
 	root /var/www/vichan;
 	index index.php, index.html;
