@@ -1,0 +1,33 @@
+
+server {
+	listen 8080;
+
+	access_log /home/josh/vichan-logons;
+	
+	root /var/www/vichan;
+	index index.php, index.html;
+
+	server_name joshbergman.xyz;
+
+	auth_basic "Access Restricted";
+	auth_basic_user_file /var/www/vichan/vichan-users;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+		fastcgi_param REMOTE_USER $remote_user;
+	}
+
+	proxy_pass_request_headers on;
+	proxy_set_header X-Remote-User $remote_user;
+	location /createuser {
+		proxy_pass http://localhost:8315/createuser;
+	}
+	location /changepassword {
+		proxy_pass http://localhost:8315/changepassword;
+	}
+}

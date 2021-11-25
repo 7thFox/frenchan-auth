@@ -30,7 +30,7 @@ func main() {
 
 func setupHTTP() {
 	http.HandleFunc("/createuser", func(w http.ResponseWriter, r *http.Request) {
-		if !admins[getAuthUser()] {
+		if !admins[getAuthUser(r)] {
 			w.WriteHeader(http.StatusForbidden)
 			return
 		}
@@ -73,6 +73,12 @@ func setupHTTP() {
 	})
 
 	http.HandleFunc("/changepassword", func(w http.ResponseWriter, r *http.Request) {
+		authUser := getAuthUser(r)
+		if authUser == "" {
+			fmt.Fprintf(w, "User Not Logged in")
+			return
+		}
+
 		switch r.Method {
 		case "GET":
 			fmt.Fprintf(w, `
@@ -99,7 +105,7 @@ func setupHTTP() {
 				fmt.Fprintf(w, "No password entered")
 			} else if r.PostForm.Get("new-password-verify") != passNew {
 				fmt.Fprintf(w, "Passwords don't match")
-			} else if err := writeUser(getAuthUser(), "", passNew, false); err != nil {
+			} else if err := writeUser(authUser, "", passNew, false); err != nil {
 				fmt.Fprintf(w, "Failed to save user: %s", err.Error())
 			} else {
 				fmt.Fprintf(w, "Successfully updated password")
@@ -176,6 +182,11 @@ func writeUser(username, name, passClear string, isCreate bool) error {
 	return nil
 }
 
-func getAuthUser() string {
-	return "joshb"
+func getAuthUser(r *http.Request) string {
+	// fmt.Println(r.Header)
+	h := r.Header["X-Remote-User"]
+	if len(h) != 1 {
+		return ""
+	}
+	return h[0]
 }
